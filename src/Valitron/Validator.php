@@ -295,6 +295,96 @@ class Validator
     }
 
     /**
+     * Validate the length of a string
+     *
+     * @param  string $field
+     * @param  mixed  $value
+     * @param  array  $params
+     * @internal param array $fields
+     * @return bool
+     */
+    protected function validateUnicodeLength($field, $value, $params)
+    {
+        $length = $this->validateUnicodeLength($value);
+        // Length between
+        if (isset($params[1])) {
+            return $length >= $params[0] && $length <= $params[1];
+        }
+        // Length same
+        return ($length !== false) && $length == $params[0];
+    }
+
+    /**
+     * Validate the length of a unicode string (between)
+     *
+     * @param  string  $field
+     * @param  mixed   $value
+     * @param  array   $params
+     * @return boolean
+     */
+    protected function validateUnicodeLengthBetween($field, $value, $params)
+    {
+        $length = $this->unicodeStringLength($value);
+
+        return ($length !== false) && $length >= $params[0] && $length <= $params[1];
+    }
+
+    /**
+     * Validate the length of a unicode string (min)
+     *
+     * @param string $field
+     * @param mixed  $value
+     * @param array  $params
+     *
+     * @return boolean
+     */
+    protected function validateUnicodeLengthMin($field, $value, $params)
+    {
+        $length = $this->unicodeStringLength($value);
+
+        return ($length !== false) && $length >= $params[0];
+    }
+
+    /**
+     * Validate the length of a unicode string (max)
+     *
+     * @param string $field
+     * @param mixed  $value
+     * @param array  $params
+     *
+     * @return boolean
+     */
+    protected function validateUnicodeLengthMax($field, $value, $params)
+    {
+        $length = $this->unicodeStringLength($value);
+
+        return ($length !== false) && $length <= $params[0];
+    }
+
+
+    /**
+     * Get the length of a unicode unicode string
+     *
+     * @param  string $value
+     * @return int|false
+     */
+    protected function unicodeStringLength($value) 
+    {
+        if (!is_string($value)) {
+            return false;
+        }
+
+        $results = array();
+        preg_match_all('/./u', $value, $results);
+        
+        if (empty($results)) {
+            return 0;
+        }
+
+        return count($results[0]);
+    }
+
+    /**
      * Get the length of a string
      *
      * @param  string $value

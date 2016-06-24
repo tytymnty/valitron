@@ -114,6 +114,10 @@ V::lang('ar');
  * `lengthBetween` - String must be between given lengths
  * `lengthMin` - String must be greater than given length
  * `lengthMax` - String must be less than given length
+ * `unicodeLength` - Unicode string must be certain length
+ * `unicodeLengthBetween` - Unicode string must be between given lengths
+ * `unicodeLengthMin` - Unicode string must be greater than given length
+ * `unicodeLengthMax` - Unicode string must be less than given length
  * `min` - Minimum
  * `max` - Maximum
  * `in` - Performs in_array check on given array values
